@@ -1,0 +1,65 @@
+<mvc:View controllerName="zjblessons.MarketplaceWorklist.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:semantic="sap.f.semantic">
+	<semantic:SemanticPage id="page" headerPinnable="false" class="sapUiNoContentPadding" toggleHeaderOnTitleClick="false">
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}"/>
+		</semantic:titleHeading>
+		<semantic:content>
+			<Table id="table" width="auto" items="{ path: '/zjblessons_base_Materials', sorter: { path: 'CreatedBy', group: true, descending: false } }"
+				noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true"
+				updateFinished="onUpdateFinished">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
+						<ToolbarSpacer/>
+						<Button text="{i18n>tSayHello}" press="onPressSayHello" type="Negative" icon="sap-icon://nutrition-activity"  />
+						<SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search="onSearch" width="auto"></SearchField>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column id="nameColumn">
+						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>tMtrls}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>tGroup}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>tSubGroup}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>tCreatedBy}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>tModifiedBy}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>tCreated}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>tActions}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" highlight="{= ${CreatedBy} === 'D1B1000046' ? 'Success' : 'None' }" press="onPress">
+						<cells>
+							<ObjectIdentifier title="{MaterialText}"/>
+							<Text text="{MaterialDescription}"/>
+							<Text text="{GroupID}"/>
+							<Text text="{SubGroupID}"/>
+							<Text text="{CreatedByFullName} ({CreatedBy})"/>
+							<Text text="{ModifiedByFullName} ({ModifiedBy})"/>
+							<Text text="{ path: 'Created', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'HH:mm dd/MM/yyyy' } }" /> 
+							<Button text="{i18n>btnEdit}" press="onPressEdit" icon="sap-icon://edit"  />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+	</semantic:SemanticPage>
+</mvc:View>
